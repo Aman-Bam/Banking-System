@@ -3,11 +3,13 @@ import { z } from 'zod';
 
 export interface Account {
     id: string;
-    name: string;
-    type: 'SAVINGS' | 'CHECKING';
-    balance: number;
+    balance: number; // Ensure this matches backend
     currency: string;
     createdAt: string;
+    user?: {
+        name: string;
+        email: string;
+    };
 }
 
 export const createAccountSchema = z.object({
@@ -23,7 +25,8 @@ export const accountApi = {
         const response = await api.get<{ accounts: any[] }>('/accounts');
         return response.data.accounts.map(acc => ({
             ...acc,
-            id: acc._id || acc.id
+            id: acc._id || acc.id,
+            user: acc.user // Pass through populated user
         })) as Account[];
     },
 

@@ -17,7 +17,7 @@ async function createAccountController(req, res) {
 
 async function getUserAccountsController(req, res) {
 
-    const accounts = await accountModel.find({ user: req.user._id });
+    const accounts = await accountModel.find({ user: req.user._id }).populate("user", "name email");
 
     res.status(200).json({
         accounts

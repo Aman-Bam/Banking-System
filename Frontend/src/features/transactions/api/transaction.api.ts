@@ -5,7 +5,6 @@ export const transactionSchema = z.object({
     fromAccountId: z.string().min(1, 'Source account is required'),
     toAccountId: z.string().min(1, 'Destination account is required'),
     amount: z.number().min(0.01, 'Amount must be greater than 0'),
-    description: z.string().min(3, 'Description is required'),
     idempotencyKey: z.string(),
 }).refine(data => data.fromAccountId !== data.toAccountId, {
     message: "Cannot transfer to the same account",
@@ -20,6 +19,8 @@ export interface Transaction {
     toAccountId: string;
     amount: number;
     description: string;
+    fromAccountName?: string;
+    toAccountName?: string;
     status: 'PENDING' | 'COMPLETED' | 'FAILED';
     date: string;
 }
@@ -61,7 +62,9 @@ export const transactionApi = {
             // "getUserTransactions" in backend helps.
             // Let's return the raw tx for now and fix dashboard logic.
             fromAccountId: tx.fromAccount._id || tx.fromAccount,
+            fromAccountName: tx.fromAccount.name || 'Unknown Account',
             toAccountId: tx.toAccount._id || tx.toAccount,
+            toAccountName: tx.toAccount.name || 'Unknown Account',
             description: `Transfer to/from ${tx.toAccount?.name || 'Account'}`, // Simplified
             status: tx.status,
             date: tx.createdAt,

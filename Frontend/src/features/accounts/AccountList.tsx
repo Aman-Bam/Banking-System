@@ -56,8 +56,8 @@ export default function AccountList() {
                                 <ChevronRight className="h-5 w-5 text-gray-400 group-hover:text-blue-500 transition" />
                             </div>
 
-                            <h3 className="font-semibold text-gray-900">{account.name}</h3>
-                            <p className="text-sm text-gray-500 mb-4 capitalize">{account.type.toLowerCase()}</p>
+                            <h3 className="font-semibold text-gray-900">{account.user?.name || 'Account'}</h3>
+                            <p className="text-sm text-gray-500 mb-4 capitalize">Checking</p>
 
                             <div className="flex items-end justify-between">
                                 <div>

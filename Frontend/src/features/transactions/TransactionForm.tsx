@@ -47,7 +47,6 @@ export default function TransactionForm() {
             reset({
                 idempotencyKey: uuidv4(),
                 amount: 0,
-                description: '',
                 fromAccountId: '',
                 toAccountId: ''
             });
@@ -98,7 +97,7 @@ export default function TransactionForm() {
                                 <option value="">Select Account</option>
                                 {accounts?.map(acc => (
                                     <option key={acc.id} value={acc.id}>
-                                        {acc.name} (${acc.balance})
+                                        {acc.user?.name || `Account`} ({acc.currency} {acc.balance})
                                     </option>
                                 ))}
                             </select>
@@ -118,13 +117,11 @@ export default function TransactionForm() {
                                 {...register('toAccountId')}
                             >
                                 <option value="">Select Account</option>
-                                {/* For demo, allowing transfer between own accounts. In real app, might enter external ID */}
                                 {accounts?.map(acc => (
                                     <option key={acc.id} value={acc.id}>
-                                        {acc.name}
+                                        {acc.user?.name || `Account`} ({acc.currency} {acc.balance})
                                     </option>
                                 ))}
-                                <option value="external">External Account (Demo)</option>
                             </select>
                             {errors.toAccountId && <p className="text-sm text-red-500 mt-1">{errors.toAccountId.message}</p>}
                         </div>
@@ -145,16 +142,7 @@ export default function TransactionForm() {
                         {errors.amount && <p className="text-sm text-red-500 mt-1">{errors.amount.message}</p>}
                     </div>
 
-                    <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">Description</label>
-                        <input
-                            type="text"
-                            className={`w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 border p-2 ${errors.description ? 'border-red-500' : ''}`}
-                            placeholder="What's this for?"
-                            {...register('description')}
-                        />
-                        {errors.description && <p className="text-sm text-red-500 mt-1">{errors.description.message}</p>}
-                    </div>
+
 
                     {/* Hidden Idempotency Key */}
                     <input type="hidden" {...register('idempotencyKey')} />

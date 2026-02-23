@@ -9,11 +9,13 @@ import AccountDetails from '../features/accounts/AccountDetails';
 import TransactionForm from '../features/transactions/TransactionForm';
 import LedgerViewer from '../features/ledger/LedgerViewer';
 import AuditLog from '../features/audit/AuditLog';
+import ErrorBoundary from '../components/ErrorBoundary';
 
 export const router = createBrowserRouter([
     {
         path: '/',
         element: <MainLayout />,
+        errorElement: <ErrorBoundary />,
         children: [
             { path: 'login', element: <LoginPage /> },
             { path: 'register', element: <RegisterPage /> },
