@@ -11,6 +11,7 @@ import {
     X
 } from 'lucide-react';
 import { useState } from 'react';
+import Header from '../Header';
 
 export default function MainLayout() {
     const { isAuthenticated, logout } = useAuthStore();
@@ -96,8 +97,11 @@ export default function MainLayout() {
             </aside>
 
             {/* Main Content */}
-            <main className="flex-1 min-w-0 overflow-auto h-screen">
-                <Outlet />
+            <main className="flex-1 min-w-0 h-screen flex flex-col">
+                <Header />
+                <div className="flex-1 overflow-auto">
+                    <Outlet />
+                </div>
             </main>
 
             {/* Mobile Overlay */}

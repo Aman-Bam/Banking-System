@@ -5,6 +5,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { authApi, RegisterInput, registerSchema } from '../../../api/auth.api';
 import { useAuthStore } from '../../../store/auth.store';
 import { useState } from 'react';
+import { SignUpButton } from '@clerk/react';
 
 export default function RegisterPage() {
     const navigate = useNavigate();
@@ -53,6 +54,23 @@ export default function RegisterPage() {
                             Sign in
                         </Link>
                     </p>
+                </div>
+
+                <div className="mt-6">
+                    <SignUpButton mode="modal">
+                        <button type="button" className="flex w-full items-center justify-center gap-3 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
+                            <span className="text-sm font-semibold leading-6">Sign up with Clerk</span>
+                        </button>
+                    </SignUpButton>
+                </div>
+
+                <div className="relative mt-6">
+                    <div className="absolute inset-0 flex items-center" aria-hidden="true">
+                        <div className="w-full border-t border-gray-200" />
+                    </div>
+                    <div className="relative flex justify-center text-sm font-medium leading-6">
+                        <span className="bg-gray-50 px-6 text-gray-900">Or continue with email</span>
+                    </div>
                 </div>
 
                 {error && (
