@@ -11,7 +11,13 @@ const cors = require("cors")
 const app = express()
 
 app.use(cors({
-    origin: ["http://localhost:5173", "https://banking-system-updated.vercel.app"],
+    origin: function (origin, callback) {
+        if (!origin) return callback(null, true);
+        if (origin.startsWith("http://localhost:") || origin.endsWith(".vercel.app")) {
+            return callback(null, true);
+        }
+        return callback(new Error('Not allowed by CORS'));
+    },
     credentials: true
 }))
 
