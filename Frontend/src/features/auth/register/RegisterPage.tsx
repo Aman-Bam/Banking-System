@@ -24,11 +24,11 @@ export default function RegisterPage() {
         mutationFn: authApi.register,
         onSuccess: (data) => {
             setAuth({
-                id: data.user.id,
-                name: data.user.fullName,
+                id: data.user._id || data.user.id,
+                name: data.user.name || data.user.fullName,
                 email: data.user.email,
                 role: 'user'
-            });
+            }, data.token);
             navigate('/');
         },
         onError: (err: any) => {

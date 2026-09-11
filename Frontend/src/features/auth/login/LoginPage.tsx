@@ -25,11 +25,11 @@ export default function LoginPage() {
         onSuccess: (data) => {
             // Map the API response to the store's User interface
             setAuth({
-                id: data.user.id,
-                name: data.user.fullName,
+                id: data.user._id || data.user.id,
+                name: data.user.name || data.user.fullName,
                 email: data.user.email,
                 role: 'user' // Default to 'user', adjust based on actual API response if needed
-            });
+            }, data.token);
             navigate('/');
         },
         onError: (err: any) => {
