@@ -53,7 +53,7 @@ const adminRoutes = require("./routes/admin.routes")
 app.get("/", (req, res) => {
     res.send("Ledger Service is up and running")
 })
-
+// Use Routes
 app.use("/api/auth", authRouter)
 app.use("/api/accounts", accountRouter)
 app.use("/api/transactions", transactionLimiter, transactionRoutes)
