@@ -99,21 +99,28 @@ async function userLoginController(req, res) {
  * - POST /api/auth/logout
  */
 async function userLogoutController(req, res) {
-  const token = req.cookies.token || req.headers.authorization?.split(" ")[1] || req.body?.token;
+  const token =
+    req.cookies?.token ||
+    req.headers.authorization?.split(" ")[1] ||
+    req.body?.token;
+
+  console.log("Logout endpoint hit. Extracted token:", token ? token.substring(0, 15) + "..." : "NONE");
 
   if (token) {
     try {
-      await tokenBlackListModel.create({
-        token: token,
-      });
+      const existing = await tokenBlackListModel.findOne({ token });
+      if (!existing) {
+        await tokenBlackListModel.create({ token });
+        console.log("Token successfully blacklisted in DB");
+      }
     } catch (err) {
-      console.error("Token blacklist failed:", err.message);
+      console.error("Token blacklist DB insertion error:", err.message);
     }
   }
 
   res.clearCookie("token", cookieOptions);
 
-  res.status(200).json({
+  return res.status(200).json({
     message: "User logged out successfully",
   });
 }
