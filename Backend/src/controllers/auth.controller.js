@@ -33,7 +33,13 @@ async function userRegisterController(req, res) {
 
   res.cookie("token", token);
 
-  res.status(201).json({
+  try {
+    await emailService.sendRegistrationEmail(user.email, user.name);
+  } catch (emailErr) {
+    console.error("Failed to send welcome email:", emailErr);
+  }
+
+  return res.status(201).json({
     user: {
       _id: user._id,
       email: user.email,
@@ -41,8 +47,6 @@ async function userRegisterController(req, res) {
     },
     token,
   });
-
-  await emailService.sendRegistrationEmail(user.email, user.name);
 }
 
 /**
