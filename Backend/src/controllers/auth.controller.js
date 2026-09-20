@@ -3,6 +3,12 @@ const jwt = require("jsonwebtoken");
 const emailService = require("../services/email.service");
 const tokenBlackListModel = require("../models/blackList.model");
 
+const cookieOptions = {
+  httpOnly: true,
+  secure: true,
+  sameSite: "none",
+};
+
 /**
  * - user register controller
  * - POST /api/auth/register
@@ -31,7 +37,7 @@ async function userRegisterController(req, res) {
     expiresIn: "3d",
   });
 
-  res.cookie("token", token);
+  res.cookie("token", token, cookieOptions);
 
   // Trigger email asynchronously in background so HTTP response is instant
   emailService
@@ -76,7 +82,7 @@ async function userLoginController(req, res) {
     expiresIn: "3d",
   });
 
-  res.cookie("token", token);
+  res.cookie("token", token, cookieOptions);
 
   res.status(200).json({
     user: {
@@ -93,19 +99,19 @@ async function userLoginController(req, res) {
  * - POST /api/auth/logout
  */
 async function userLogoutController(req, res) {
-  const token = req.cookies.token || req.headers.authorization?.split(" ")[1];
+  const token = req.cookies.token || req.headers.authorization?.split(" ")[1] || req.body?.token;
 
-  if (!token) {
-    return res.status(200).json({
-      message: "User logged out successfully",
-    });
+  if (token) {
+    try {
+      await tokenBlackListModel.create({
+        token: token,
+      });
+    } catch (err) {
+      console.error("Token blacklist failed:", err.message);
+    }
   }
 
-  await tokenBlackListModel.create({
-    token: token,
-  });
-
-  res.clearCookie("token");
+  res.clearCookie("token", cookieOptions);
 
   res.status(200).json({
     message: "User logged out successfully",
