@@ -63,7 +63,7 @@ export default function AccountList() {
                                 <div>
                                     <p className="text-xs text-gray-500 mb-1">Current Balance</p>
                                     <p className="text-2xl font-bold text-gray-900">
-                                        {new Intl.NumberFormat('en-US', { style: 'currency', currency: account.currency }).format(account.balance)}
+                                        {new Intl.NumberFormat('en-US', { style: 'currency', currency: account.currency || 'USD' }).format(account.balance || 0)}
                                     </p>
                                 </div>
                             </div>
