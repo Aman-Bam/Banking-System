@@ -10,8 +10,6 @@ Built with **React, TypeScript, Vite, Tailwind CSS** on the frontend, and **Node
 
 - **Frontend (Vercel)**: [https://banking-system-sooty.vercel.app](https://banking-system-sooty.vercel.app)
 - **Backend API (Render)**: [https://banking-system-6hif.onrender.com](https://banking-system-6hif.onrender.com)
-- **Privacy Policy**: [https://banking-system-sooty.vercel.app/privacy](https://banking-system-sooty.vercel.app/privacy)
-- **Terms of Service**: [https://banking-system-sooty.vercel.app/terms](https://banking-system-sooty.vercel.app/terms)
 
 ---
 
