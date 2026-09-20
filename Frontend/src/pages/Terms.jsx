@@ -24,7 +24,7 @@ const Terms = () => {
                     <section>
                         <h2 className="text-xl font-semibold text-white mb-3">1. Acceptance of Terms</h2>
                         <p>
-                            By accessing or using the Banking System platform ("Services"), you agree to be bound by these Terms of Service.
+                            By accessing or using the Backend-Ledger platform ("Services"), you agree to be bound by these Terms of Service.
                             If you do not agree to these terms, please do not use or access our Services.
                         </p>
                     </section>
@@ -60,7 +60,7 @@ const Terms = () => {
                     <section>
                         <h2 className="text-xl font-semibold text-white mb-3">5. Limitation of Liability</h2>
                         <p>
-                            To the maximum extent permitted by applicable law, Banking System and its operators shall not be liable for any indirect,
+                            To the maximum extent permitted by applicable law, Backend-Ledger and its operators shall not be liable for any indirect,
                             incidental, or consequential damages resulting from your access to or inability to access the service.
                         </p>
                     </section>

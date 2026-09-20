@@ -24,8 +24,8 @@ const Privacy = () => {
                     <section>
                         <h2 className="text-xl font-semibold text-white mb-3">1. Introduction</h2>
                         <p>
-                            Welcome to Banking System ("we", "our", or "us"). We respect your privacy and are committed to protecting your personal data.
-                            This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you access our banking platform.
+                            Welcome to Backend-Ledger ("we", "our", or "us"). We respect your privacy and are committed to protecting your personal data.
+                            This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you access our platform.
                         </p>
                     </section>
 

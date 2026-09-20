@@ -22,7 +22,7 @@ const Landing = () => {
                             <ShieldCheck className="w-6 h-6 text-white" />
                         </div>
                         <span className="text-xl font-bold bg-gradient-to-r from-white via-slate-200 to-slate-400 bg-clip-text text-transparent">
-                            Banking Ledger System
+                            Backend-Ledger
                         </span>
                     </div>
 
@@ -65,13 +65,13 @@ const Landing = () => {
             <main className="relative z-10">
                 <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-16 text-center">
                     <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-300 text-sm font-medium mb-8">
-                        <Lock className="w-4 h-4" /> Secure Enterprise Financial Ledger Platform
+                        <Lock className="w-4 h-4" /> Secure Enterprise Financial Platform
                     </div>
 
                     <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight text-white mb-6 leading-tight">
-                        Real-Time Double-Entry <br />
+                        Welcome to <br />
                         <span className="bg-gradient-to-r from-purple-400 via-indigo-300 to-blue-400 bg-clip-text text-transparent">
-                            Banking & Transaction Ledger
+                            Backend-Ledger
                         </span>
                     </h1>
 
@@ -81,9 +81,9 @@ const Landing = () => {
                             Application Purpose Overview
                         </h2>
                         <p className="text-slate-300 text-base sm:text-lg leading-relaxed">
-                            The <strong>Banking System</strong> is a full-stack financial platform designed to manage digital bank accounts,
-                            execute secure money transfers between accounts with double-entry ledger verification, prevent double-spending with idempotency protection,
-                            and provide real-time transaction history with automated email notifications.
+                            <strong>Backend-Ledger</strong> is a full-stack financial application designed to manage digital bank accounts,
+                            execute secure money transfers with double-entry ledger verification, prevent double-spending with idempotency protection,
+                            and send automated transactional notifications.
                         </p>
                     </div>
 
@@ -119,7 +119,7 @@ const Landing = () => {
                             </div>
                             <h3 className="text-xl font-bold text-white mb-3">Multi-Account Management</h3>
                             <p className="text-slate-400 text-sm leading-relaxed">
-                                Create and manage checking and savings accounts with real-time balance calculations derived directly from the immutable transaction ledger.
+                                Create and manage checking and savings accounts with real-time balance calculations derived directly from the Backend-Ledger system.
                             </p>
                         </div>
 
@@ -175,7 +175,7 @@ const Landing = () => {
             <footer className="border-t border-slate-800 bg-slate-950 py-12 relative z-10">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-6">
                     <div className="text-slate-400 text-sm">
-                        © 2026 Banking Ledger System. All rights reserved.
+                        © 2026 Backend-Ledger. All rights reserved.
                     </div>
                     <div className="flex items-center gap-6 text-sm">
                         <Link to="/privacy" className="text-slate-400 hover:text-purple-400 transition-colors">
