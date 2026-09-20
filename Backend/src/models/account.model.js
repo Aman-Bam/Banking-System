@@ -1,52 +1,59 @@
-const mongoose = require("mongoose")
-const ledgerModel = require("./ledger.model")
+const mongoose = require("mongoose");
+const ledgerModel = require("./ledger.model");
 
-const accountSchema = new mongoose.Schema({
+const accountSchema = new mongoose.Schema(
+  {
     user: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "user",
-        required: [true, "Account must be associated with a user"],
-        index: true
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "user",
+      required: [true, "Account must be associated with a user"],
+      index: true,
+    },
+    userName: {
+      type: String,
+      required: [true, "User name is required"],
     },
     status: {
-        type: String,
-        enum: {
-            values: ["ACTIVE", "FROZEN", "CLOSED"],
-            message: "Status can be either ACTIVE, FROZEN or CLOSED",
-        },
-        default: "ACTIVE"
+      type: String,
+      enum: {
+        values: ["ACTIVE", "FROZEN", "CLOSED"],
+        message: "Status can be either ACTIVE, FROZEN or CLOSED",
+      },
+      default: "ACTIVE",
     },
     // ── ADDED: Mutable balance field ──
-    // This is the CONCURRENCY GATE. 
+    // This is the CONCURRENCY GATE.
     // It must only be modified by the transaction engine.
     balance: {
-        type: Number,
-        default: 0,
-        min: [0, "Account balance cannot be negative"]
+      type: Number,
+      default: 0,
+      min: [0, "Account balance cannot be negative"],
     },
     currency: {
-        type: String,
-        required: [true, "Currency is required for creating an account"],
-        default: "INR"
-    }
-}, {
-    timestamps: true
-})
+      type: String,
+      required: [true, "Currency is required for creating an account"],
+      default: "INR",
+    },
+  },
+  {
+    timestamps: true,
+  },
+);
 
-accountSchema.index({ user: 1, status: 1 })
+accountSchema.index({ user: 1, status: 1 });
 
 /**
  * Get account balance.
- * 
- * NOTE: With the reintroduction of the `balance` field, this method now 
- * primarily returns the stored balance. 
+ *
+ * NOTE: With the reintroduction of the `balance` field, this method now
+ * primarily returns the stored balance.
  *
  * @param {ClientSession} [session] - MongoDB session
  * @returns {Promise<number>}
  */
 accountSchema.methods.getBalance = async function (session) {
-    return this.balance
-}
+  return this.balance;
+};
 
 /*
 // DEPRECATED: Old aggregation-based balance check.
@@ -97,9 +104,6 @@ accountSchema.methods.getLedgerBalance = async function (session) {
 }
 */
 
+const accountModel = mongoose.model("account", accountSchema);
 
-const accountModel = mongoose.model("account", accountSchema)
-
-
-
-module.exports = accountModel
+module.exports = accountModel;
