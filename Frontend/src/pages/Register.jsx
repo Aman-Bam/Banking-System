@@ -4,7 +4,6 @@ import { useNavigate, Link } from 'react-router-dom';
 import Input from '../components/ui/Input';
 import Button from '../components/ui/Button';
 import { UserPlus, ShieldCheck } from 'lucide-react';
-import { SignUpButton } from '@clerk/react';
 
 const Register = () => {
     const [name, setName] = useState('');
@@ -22,7 +21,7 @@ const Register = () => {
 
         try {
             await register(name, email, password);
-            navigate('/');
+            navigate('/dashboard');
         } catch (err) {
             setError(err.response?.data?.message || 'Failed to register');
         } finally {
@@ -51,23 +50,6 @@ const Register = () => {
                         <span>⚠️</span> {error}
                     </div>
                 )}
-
-                <div className="mb-6">
-                    <SignUpButton mode="modal">
-                        <button type="button" className="w-full flex items-center justify-center gap-2 bg-white text-slate-900 px-4 py-3 rounded-xl font-semibold hover:bg-slate-50 transition-colors shadow-lg shadow-white/10">
-                            Sign up with Clerk
-                        </button>
-                    </SignUpButton>
-                    
-                    <div className="mt-6 relative">
-                        <div className="absolute inset-0 flex items-center">
-                            <div className="w-full border-t border-white/20"></div>
-                        </div>
-                        <div className="relative flex justify-center text-sm">
-                            <span className="px-4 text-white/60 bg-[#1e1b4b] backdrop-blur-sm rounded-full">Or continue with email</span>
-                        </div>
-                    </div>
-                </div>
 
                 <form onSubmit={handleSubmit} className="space-y-6">
                     <Input

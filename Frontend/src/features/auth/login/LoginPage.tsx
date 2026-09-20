@@ -5,7 +5,6 @@ import { useNavigate, Link } from 'react-router-dom';
 import { authApi, LoginInput, loginSchema } from '../../../api/auth.api';
 import { useAuthStore } from '../../../store/auth.store';
 import { useState } from 'react';
-import { SignInButton } from '@clerk/react';
 
 export default function LoginPage() {
     const navigate = useNavigate();
@@ -23,12 +22,11 @@ export default function LoginPage() {
     const loginMutation = useMutation({
         mutationFn: authApi.login,
         onSuccess: (data) => {
-            // Map the API response to the store's User interface
             setAuth({
                 id: data.user._id || data.user.id,
                 name: data.user.name || data.user.fullName,
                 email: data.user.email,
-                role: 'user' // Default to 'user', adjust based on actual API response if needed
+                role: 'user'
             }, data.token);
             navigate('/');
         },
@@ -55,23 +53,6 @@ export default function LoginPage() {
                             Sign-Up
                         </Link>
                     </p>
-                </div>
-
-                <div className="mt-6">
-                    <SignInButton mode="modal">
-                        <button type="button" className="flex w-full items-center justify-center gap-3 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
-                            <span className="text-sm font-semibold leading-6">Sign in with Clerk</span>
-                        </button>
-                    </SignInButton>
-                </div>
-
-                <div className="relative mt-6">
-                    <div className="absolute inset-0 flex items-center" aria-hidden="true">
-                        <div className="w-full border-t border-gray-200" />
-                    </div>
-                    <div className="relative flex justify-center text-sm font-medium leading-6">
-                        <span className="bg-gray-50 px-6 text-gray-900">Or continue with email</span>
-                    </div>
                 </div>
 
                 {error && (

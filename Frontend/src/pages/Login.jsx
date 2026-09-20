@@ -4,7 +4,6 @@ import { useNavigate, Link } from 'react-router-dom';
 import Input from '../components/ui/Input';
 import Button from '../components/ui/Button';
 import { LogIn, User } from 'lucide-react';
-import { SignInButton } from '@clerk/react';
 
 const Login = () => {
     const [email, setEmail] = useState('');
@@ -21,7 +20,7 @@ const Login = () => {
 
         try {
             await login(email, password);
-            navigate('/');
+            navigate('/dashboard');
         } catch (err) {
             setError(err.response?.data?.message || 'Failed to login');
         } finally {
@@ -51,23 +50,6 @@ const Login = () => {
                         <span>⚠️</span> {error}
                     </div>
                 )}
-
-                <div className="mb-6">
-                    <SignInButton mode="modal">
-                        <button type="button" className="w-full flex items-center justify-center gap-2 bg-white text-slate-900 px-4 py-3 rounded-xl font-semibold hover:bg-slate-50 transition-colors shadow-lg shadow-white/10">
-                            Sign in with Clerk
-                        </button>
-                    </SignInButton>
-                    
-                    <div className="mt-6 relative">
-                        <div className="absolute inset-0 flex items-center">
-                            <div className="w-full border-t border-white/20"></div>
-                        </div>
-                        <div className="relative flex justify-center text-sm">
-                            <span className="px-4 text-white/60 bg-[#1e1b4b] backdrop-blur-sm rounded-full">Or continue with email</span>
-                        </div>
-                    </div>
-                </div>
 
                 <form onSubmit={handleSubmit} className="space-y-6">
                     <Input
