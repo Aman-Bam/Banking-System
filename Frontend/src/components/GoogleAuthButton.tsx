@@ -1,9 +1,7 @@
 import { GoogleLogin } from '@react-oauth/google';
-import axios from 'axios';
+import api from '../api/axios';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
-
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000';
 
 export default function GoogleAuthButton() {
     const { login } = useAuth();
@@ -11,11 +9,9 @@ export default function GoogleAuthButton() {
 
     const handleSuccess = async (credentialResponse: any) => {
         try {
-            const res = await axios.post(
-                `${API_BASE_URL}/api/auth/google`,
-                { idToken: credentialResponse.credential },
-                { withCredentials: true }
-            );
+            const res = await api.post('/auth/google', {
+                idToken: credentialResponse.credential,
+            });
 
             if (res.data.user) {
                 login(res.data.user);
@@ -40,3 +36,4 @@ export default function GoogleAuthButton() {
         </div>
     );
 }
+
