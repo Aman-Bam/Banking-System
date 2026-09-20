@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 import { login as loginApi, register as registerApi, logout as logoutApi } from '../api/auth';
+import { useAuthStore } from '../store/auth.store';
 
 const AuthContext = createContext();
 
@@ -25,6 +26,7 @@ export const AuthProvider = ({ children }) => {
             setUser(data.user);
             if (data.token) {
                 localStorage.setItem('token', data.token);
+                useAuthStore.getState().login(data.user, data.token);
             }
             localStorage.setItem('user', JSON.stringify(data.user));
             return data;
@@ -39,6 +41,7 @@ export const AuthProvider = ({ children }) => {
             setUser(data.user);
             if (data.token) {
                 localStorage.setItem('token', data.token);
+                useAuthStore.getState().login(data.user, data.token);
             }
             localStorage.setItem('user', JSON.stringify(data.user));
             return data;
@@ -49,11 +52,12 @@ export const AuthProvider = ({ children }) => {
 
     const logout = async () => {
         try {
-            const token = localStorage.getItem('token');
+            const token = localStorage.getItem('token') || useAuthStore.getState().token;
             await logoutApi(token);
         } catch (error) {
             console.error("Logout failed", error);
         } finally {
+            useAuthStore.getState().logout();
             setUser(null);
             localStorage.removeItem('user');
             localStorage.removeItem('token');

@@ -11,9 +11,8 @@ const api = axios.create({
     withCredentials: true,
 });
 
-// Response interceptor to handle 401 (Unauthorized)
 api.interceptors.request.use((config) => {
-    const token = useAuthStore.getState().token;
+    const token = useAuthStore.getState().token || localStorage.getItem('token');
     if (token) {
         config.headers.Authorization = `Bearer ${token}`;
     }
@@ -24,9 +23,9 @@ api.interceptors.response.use(
     (response) => response,
     (error) => {
         if (error.response && error.response.status === 401) {
-            // Handle logout or redirect to login (can use events or callback)
-            // For now, simpler to just let the component handle it or dispatch an event
             useAuthStore.getState().logout();
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
             window.dispatchEvent(new Event('auth:unauthorized'));
         }
         return Promise.reject(error);
