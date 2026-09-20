@@ -177,6 +177,8 @@ async function executeTransaction(
           {
             fromAccount,
             toAccount,
+            fromUserName: fromUserAccount.userName,
+            toUserName: toUserAccount.userName,
             amount,
             idempotencyKey,
             status: "PENDING",
@@ -191,6 +193,7 @@ async function executeTransaction(
       [
         {
           account: fromAccount,
+          userName: fromUserAccount.userName,
           amount: amount,
           transaction: transaction._id,
           type: "DEBIT",
@@ -203,6 +206,7 @@ async function executeTransaction(
       [
         {
           account: toAccount,
+          userName: toUserAccount.userName,
           amount: amount,
           transaction: transaction._id,
           type: "CREDIT",
@@ -318,6 +322,8 @@ async function createInitialFundsTransaction(req, res) {
           {
             fromAccount: fromUserAccount._id,
             toAccount,
+            fromUserName: fromUserAccount.userName || "System",
+            toUserName: toUserAccount.userName,
             amount,
             idempotencyKey,
             status: "PENDING",
@@ -332,6 +338,7 @@ async function createInitialFundsTransaction(req, res) {
       [
         {
           account: fromUserAccount._id,
+          userName: fromUserAccount.userName || "System",
           amount: amount,
           transaction: transaction._id,
           type: "DEBIT",
@@ -345,6 +352,7 @@ async function createInitialFundsTransaction(req, res) {
       [
         {
           account: toAccount,
+          userName: toUserAccount.userName,
           amount: amount,
           transaction: transaction._id,
           type: "CREDIT",
