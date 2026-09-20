@@ -5,6 +5,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { authApi, LoginInput, loginSchema } from '../../../api/auth.api';
 import { useAuthStore } from '../../../store/auth.store';
 import { useState } from 'react';
+import GoogleAuthButton from '../../../components/GoogleAuthButton';
 
 export default function LoginPage() {
     const navigate = useNavigate();
@@ -121,8 +122,16 @@ export default function LoginPage() {
                             )}
                         </button>
                     </div>
+
+                    <div className="relative my-4 flex items-center justify-center">
+                        <div className="border-t border-gray-300 w-full"></div>
+                        <span className="bg-white px-3 text-xs text-gray-500 uppercase font-medium absolute">Or continue with</span>
+                    </div>
+
+                    <GoogleAuthButton />
                 </form>
             </div>
         </div>
     );
 }
+
