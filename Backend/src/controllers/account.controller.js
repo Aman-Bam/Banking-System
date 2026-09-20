@@ -55,6 +55,16 @@ async function getUserAccountsController(req, res) {
   });
 }
 
+async function getAllRegisteredAccountsController(req, res) {
+  const accounts = await accountModel
+    .find({ status: "ACTIVE" })
+    .populate("user", "name email");
+
+  res.status(200).json({
+    accounts,
+  });
+}
+
 async function getAccountBalanceController(req, res) {
   const { accountId } = req.params;
 
@@ -83,5 +93,6 @@ async function getAccountBalanceController(req, res) {
 module.exports = {
   createAccountController,
   getUserAccountsController,
+  getAllRegisteredAccountsController,
   getAccountBalanceController,
 };

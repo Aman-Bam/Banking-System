@@ -12,9 +12,14 @@ export default function TransactionForm() {
     const [successMessage, setSuccessMessage] = useState<string | null>(null);
     const [error, setError] = useState<string | null>(null);
 
-    const { data: accounts } = useQuery({
+    const { data: userAccounts } = useQuery({
         queryKey: ['accounts'],
         queryFn: accountApi.getAccounts,
+    });
+
+    const { data: allAccounts } = useQuery({
+        queryKey: ['all-registered-accounts'],
+        queryFn: accountApi.getAllAccounts,
     });
 
     const {
@@ -31,9 +36,12 @@ export default function TransactionForm() {
         }
     });
 
+    const selectedFromAccount = watch('fromAccountId');
     const selectedAmount = watch('amount');
 
-    // Regenerate idempotency key on mount or after success
+    // Filter destination accounts to exclude the selected source account
+    const destinationAccounts = allAccounts?.filter(acc => acc.id !== selectedFromAccount) || [];
+
     useEffect(() => {
         setValue('idempotencyKey', uuidv4());
     }, [setValue, successMessage]);
@@ -44,6 +52,7 @@ export default function TransactionForm() {
             setSuccessMessage('Transaction processed successfully!');
             queryClient.invalidateQueries({ queryKey: ['dashboard'] });
             queryClient.invalidateQueries({ queryKey: ['accounts'] });
+            queryClient.invalidateQueries({ queryKey: ['all-registered-accounts'] });
             reset({
                 idempotencyKey: uuidv4(),
                 amount: 0,
@@ -53,8 +62,7 @@ export default function TransactionForm() {
             setTimeout(() => setSuccessMessage(null), 5000);
         },
         onError: (err: any) => {
-            setError(err.message || 'Transaction failed');
-            // Do NOT generate new key on error to allow retry
+            setError(err.response?.data?.message || err.message || 'Transaction failed');
         }
     });
 
@@ -89,15 +97,15 @@ export default function TransactionForm() {
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 relative">
                         <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-1">From Account</label>
+                            <label className="block text-sm font-medium text-gray-700 mb-1">From Account (Your Account)</label>
                             <select
                                 className={`w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 border p-2 ${errors.fromAccountId ? 'border-red-500' : ''}`}
                                 {...register('fromAccountId')}
                             >
-                                <option value="">Select Account</option>
-                                {accounts?.map(acc => (
+                                <option value="">Select Your Account</option>
+                                {userAccounts?.map(acc => (
                                     <option key={acc.id} value={acc.id}>
-                                        {acc.user?.name || `Account`} ({acc.currency} {acc.balance})
+                                        {acc.userName || acc.user?.name || `Account`} (${acc.balance}) - ...{acc.id.slice(-6)}
                                     </option>
                                 ))}
                             </select>
@@ -111,15 +119,15 @@ export default function TransactionForm() {
                         </div>
 
                         <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-1">To Account</label>
+                            <label className="block text-sm font-medium text-gray-700 mb-1">To Account (Select Recipient)</label>
                             <select
                                 className={`w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 border p-2 ${errors.toAccountId ? 'border-red-500' : ''}`}
                                 {...register('toAccountId')}
                             >
-                                <option value="">Select Account</option>
-                                {accounts?.map(acc => (
+                                <option value="">Select Recipient Account</option>
+                                {destinationAccounts.map(acc => (
                                     <option key={acc.id} value={acc.id}>
-                                        {acc.user?.name || `Account`} ({acc.currency} {acc.balance})
+                                        {acc.userName || acc.user?.name || 'User'} ({acc.user?.email || 'Registered'}) - ...{acc.id.slice(-6)}
                                     </option>
                                 ))}
                             </select>
@@ -141,8 +149,6 @@ export default function TransactionForm() {
                         </div>
                         {errors.amount && <p className="text-sm text-red-500 mt-1">{errors.amount.message}</p>}
                     </div>
-
-
 
                     {/* Hidden Idempotency Key */}
                     <input type="hidden" {...register('idempotencyKey')} />

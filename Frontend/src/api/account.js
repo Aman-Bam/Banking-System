@@ -10,6 +10,11 @@ export const getAccounts = async () => {
     return response.data;
 };
 
+export const getAllAccounts = async () => {
+    const response = await api.get('/accounts/all');
+    return response.data;
+};
+
 export const getBalance = async (accountId) => {
     const response = await api.get(`/accounts/balance/${accountId}`);
     return response.data;

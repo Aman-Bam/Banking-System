@@ -3,10 +3,13 @@ import { z } from 'zod';
 
 export interface Account {
     id: string;
-    balance: number; // Ensure this matches backend
+    _id?: string;
+    balance: number;
     currency: string;
+    userName?: string;
     createdAt: string;
     user?: {
+        _id?: string;
         name: string;
         email: string;
     };
@@ -26,12 +29,20 @@ export const accountApi = {
         return response.data.accounts.map(acc => ({
             ...acc,
             id: acc._id || acc.id,
-            user: acc.user // Pass through populated user
+            user: acc.user
+        })) as Account[];
+    },
+
+    getAllAccounts: async () => {
+        const response = await api.get<{ accounts: any[] }>('/accounts/all');
+        return response.data.accounts.map(acc => ({
+            ...acc,
+            id: acc._id || acc.id,
+            user: acc.user
         })) as Account[];
     },
 
     getAccount: async (id: string) => {
-        // Fetch all accounts and find the one matching the ID
         const allAccounts = await accountApi.getAccounts();
         const account = allAccounts.find(a => a.id === id);
         if (!account) throw new Error("Account not found");

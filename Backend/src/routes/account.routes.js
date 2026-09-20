@@ -27,6 +27,17 @@ router.get(
 );
 
 /**
+ * - GET /api/accounts/all
+ * - Get all registered active accounts in the banking system for transfer selection
+ * - Protected Route
+ */
+router.get(
+  "/all",
+  authMiddleware.authMiddleware,
+  accountController.getAllRegisteredAccountsController,
+);
+
+/**
  * - GET /api/accounts/balance/:accountId
  */
 router.get(
