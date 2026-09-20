@@ -33,11 +33,10 @@ async function userRegisterController(req, res) {
 
   res.cookie("token", token);
 
-  try {
-    await emailService.sendRegistrationEmail(user.email, user.name);
-  } catch (emailErr) {
-    console.error("Failed to send welcome email:", emailErr);
-  }
+  // Trigger email asynchronously in background so HTTP response is instant
+  emailService
+    .sendRegistrationEmail(user.email, user.name)
+    .catch((emailErr) => console.error("Failed to send welcome email:", emailErr));
 
   return res.status(201).json({
     user: {
