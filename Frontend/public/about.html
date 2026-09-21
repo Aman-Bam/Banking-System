@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - Backend-Ledger</title>
+    <style>
+        body { font-family: system-ui, -apple-system, sans-serif; background-color: #020617; color: #f8fafc; max-width: 800px; margin: 0 auto; padding: 40px 20px; line-height: 1.6; }
+        h1 { color: #ffffff; border-bottom: 1px solid #334155; padding-bottom: 10px; }
+        h2 { color: #c084fc; margin-top: 30px; }
+        ul { padding-left: 20px; }
+        a { color: #a855f7; text-decoration: none; }
+        .date { color: #94a3b8; font-size: 0.9em; }
+        .highlight { background: rgba(168, 85, 247, 0.1); border-left: 4px solid #a855f7; padding: 12px 16px; margin: 20px 0; border-radius: 4px; }
+    </style>
+</head>
+<body>
+    <h1>About Backend-Ledger</h1>
+    <p class="date">Enterprise-Grade Financial Ledger & Banking System</p>
+
+    <div class="highlight">
+        <p><strong>Backend-Ledger</strong> is a full-stack financial application designed to manage digital bank accounts, execute secure money transfers with double-entry ledger verification, prevent double-spending with idempotency protection, and send automated transactional notifications.</p>
+    </div>
+
+    <h2>1. Core Purpose</h2>
+    <p>Financial software requires absolute transaction integrity, zero silent failures, and strict auditability. Backend-Ledger enforces double-entry accounting where every transfer generates balanced debit and credit ledger pairs ($Sum(Debits) = Sum(Credits)$).</p>
+
+    <h2>2. Key Features</h2>
+    <ul>
+        <li><strong>Secure Authentication:</strong> Custom JWT authentication with HTTP-only cookies and active MongoDB token TTL blacklisting on logout.</li>
+        <li><strong>Multi-Account Management:</strong> Create and manage savings and checking accounts with real-time balance calculations.</li>
+        <li><strong>Atomic Transfers & Double-Entry Ledger:</strong> Guaranteed financial correctness across all account transactions.</li>
+        <li><strong>Idempotency Protection:</strong> Prevents duplicate transactions using unique idempotency request keys.</li>
+        <li><strong>Automated Notifications:</strong> Instant transaction receipts powered by Nodemailer & Google OAuth2.</li>
+        <li><strong>Audit Logs & Reconciliation:</strong> Full transparency with real-time audit trails and administrative reconciliation endpoints.</li>
+    </ul>
+
+    <h2>3. Tech Stack</h2>
+    <p><strong>Frontend:</strong> React 18, TypeScript, Vite, Tailwind CSS, TanStack Query, Zustand, Axios</p>
+    <p><strong>Backend:</strong> Node.js, Express.js, MongoDB Atlas (Mongoose), Zod Schema Validation, Winston Logger</p>
+
+    <h2>4. Links & Contact</h2>
+    <p>
+        <a href="/">Back to Application</a> | 
+        <a href="/privacy">Privacy Policy</a> | 
+        <a href="/terms">Terms of Service</a>
+    </p>
+    <p>Contact support: <a href="mailto:support@banking-system-sooty.vercel.app">support@banking-system-sooty.vercel.app</a></p>
+</body>
+</html>
