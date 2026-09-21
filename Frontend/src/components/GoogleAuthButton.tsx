@@ -1,10 +1,10 @@
 import { GoogleLogin } from '@react-oauth/google';
 import api from '../api/axios';
-import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import { useAuthStore } from '../store/auth.store';
 
 export default function GoogleAuthButton() {
-    const { login } = useAuth();
+    const setAuth = useAuthStore((state) => state.login);
     const navigate = useNavigate();
 
     const handleSuccess = async (credentialResponse: any) => {
@@ -13,8 +13,16 @@ export default function GoogleAuthButton() {
                 idToken: credentialResponse.credential,
             });
 
-            if (res.data.user) {
-                login(res.data.user);
+            if (res.data.user && res.data.token) {
+                const { user, token } = res.data;
+                localStorage.setItem('token', token);
+                localStorage.setItem('user', JSON.stringify(user));
+                setAuth({
+                    id: user._id || user.id,
+                    name: user.name || user.fullName,
+                    email: user.email,
+                    role: 'user'
+                }, token);
                 navigate('/dashboard');
             }
         } catch (err: any) {
