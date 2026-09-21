@@ -13,12 +13,18 @@ const app = express()
 app.use(cors({
     origin: function (origin, callback) {
         if (!origin) return callback(null, true);
-        if (origin.startsWith("http://localhost:") || origin.endsWith(".vercel.app")) {
-            return callback(null, true);
+        if (
+            origin.startsWith("http://localhost:") ||
+            origin.endsWith(".vercel.app") ||
+            origin === "https://banking-system-sooty.vercel.app"
+        ) {
+            return callback(null, origin);
         }
-        return callback(new Error('Not allowed by CORS'));
+        return callback(null, false);
     },
-    credentials: true
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
+    allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"]
 }))
 
 app.use(express.json())
