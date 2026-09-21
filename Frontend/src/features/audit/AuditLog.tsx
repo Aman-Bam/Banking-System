@@ -17,7 +17,7 @@ export default function AuditLog() {
         user: tx.fromAccountName || tx.fromAccountId || 'User',
         timestamp: tx.date,
         resourceId: tx.id,
-        details: `Transferred $${tx.amount} to ${tx.toAccountName || tx.toAccountId}`,
+        details: `Transferred ₹${tx.amount} to ${tx.toAccountName || tx.toAccountId}`,
         severity: tx.status === 'FAILED' ? 'WARNING' : 'INFO'
     })).filter(log =>
         log.details.toLowerCase().includes(searchTerm.toLowerCase()) ||

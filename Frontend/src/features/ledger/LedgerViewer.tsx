@@ -47,7 +47,7 @@ export default function LedgerViewer() {
                                         {entry.toAccountName || entry.toAccountId}
                                     </td>
                                     <td className="px-6 py-4 whitespace-nowrap text-right text-gray-900 font-bold">
-                                        {new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(entry.amount)}
+                                        {new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' }).format(entry.amount)}
                                     </td>
                                     <td className="px-6 py-4 whitespace-nowrap text-right">
                                         <button

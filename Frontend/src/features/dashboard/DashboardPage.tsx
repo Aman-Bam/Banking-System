@@ -53,7 +53,7 @@ export default function DashboardPage() {
                         <Wallet className="h-4 w-4 text-gray-500" />
                     </div>
                     <div className="text-2xl font-bold text-gray-900">
-                        ${data?.totalBalance.toFixed(2)}
+                        ₹{data?.totalBalance.toFixed(2)}
                     </div>
                     <p className="text-xs text-gray-500 mt-1">Across all accounts</p>
                 </div>
@@ -105,7 +105,7 @@ export default function DashboardPage() {
                             </div>
                             <div className="text-right">
                                 <p className={`font-medium ${tx.type === 'CREDIT' ? 'text-green-600' : 'text-gray-900'}`}>
-                                    {tx.type === 'CREDIT' ? '+' : '-'}${tx.amount.toFixed(2)}
+                                    {tx.type === 'CREDIT' ? '+' : '-'}₹{tx.amount.toFixed(2)}
                                 </p>
                                 <p className="text-xs text-gray-500 capitalize">{tx.status}</p>
                             </div>
