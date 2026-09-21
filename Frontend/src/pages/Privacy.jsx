@@ -5,10 +5,16 @@ const Privacy = () => {
     return (
         <div className="min-h-screen bg-slate-950 text-slate-100 py-12 px-4 sm:px-6 lg:px-8">
             <div className="max-w-4xl mx-auto bg-slate-900/80 backdrop-blur-xl border border-slate-800 rounded-2xl p-8 sm:p-12 shadow-2xl">
-                <div className="mb-8">
-                    <Link to="/" className="inline-flex items-center text-sm font-medium text-purple-400 hover:text-purple-300 mb-6 transition-colors">
+                <div className="mb-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                    <Link to="/" className="inline-flex items-center text-sm font-medium text-purple-400 hover:text-purple-300 transition-colors">
                         <ArrowLeft className="w-4 h-4 mr-2" /> Back to Application
                     </Link>
+                    <div className="flex items-center gap-4 text-sm text-slate-400">
+                        <Link to="/about" className="hover:text-white transition-colors">About App</Link>
+                        <Link to="/terms" className="hover:text-white transition-colors">Terms of Service</Link>
+                    </div>
+                </div>
+                <div className="mb-8">
                     <div className="flex items-center gap-3 mb-4">
                         <div className="p-3 bg-purple-500/10 border border-purple-500/20 rounded-xl">
                             <ShieldCheck className="w-8 h-8 text-purple-400" />

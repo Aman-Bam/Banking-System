@@ -27,6 +27,9 @@ const Landing = () => {
                     </div>
 
                     <div className="flex items-center gap-4">
+                        <Link to="/about" className="text-sm text-slate-400 hover:text-white transition-colors hidden sm:block">
+                            About App
+                        </Link>
                         <Link to="/privacy" className="text-sm text-slate-400 hover:text-white transition-colors hidden sm:block">
                             Privacy Policy
                         </Link>
@@ -178,6 +181,9 @@ const Landing = () => {
                         © 2026 Backend-Ledger. All rights reserved.
                     </div>
                     <div className="flex items-center gap-6 text-sm">
+                        <Link to="/about" className="text-slate-400 hover:text-purple-400 transition-colors">
+                            About App
+                        </Link>
                         <Link to="/privacy" className="text-slate-400 hover:text-purple-400 transition-colors">
                             Privacy Policy
                         </Link>
