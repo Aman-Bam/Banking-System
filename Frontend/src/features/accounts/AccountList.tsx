@@ -42,12 +42,14 @@ export default function AccountList() {
             </div>
 
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-                {accounts?.map((account) => (
-                    <Link
-                        key={account.id}
-                        to={`/accounts/${account.id}`}
-                        className="block bg-white rounded-xl shadow-sm border border-gray-200 hover:border-blue-300 hover:shadow-md transition-all group"
-                    >
+                {accounts?.map((account) => {
+                    const accId = account.id || account._id;
+                    return (
+                        <Link
+                            key={accId}
+                            to={`/accounts/${accId}`}
+                            className="block bg-white rounded-xl shadow-sm border border-gray-200 hover:border-blue-300 hover:shadow-md transition-all group"
+                        >
                         <div className="p-6">
                             <div className="flex items-center justify-between mb-4">
                                 <div className="p-2 bg-blue-50 rounded-lg text-blue-600 group-hover:bg-blue-100 transition">
@@ -74,8 +76,9 @@ export default function AccountList() {
                                 Created {new Date(account.createdAt).toLocaleDateString()}
                             </p>
                         </div>
-                    </Link>
-                ))}
+                        </Link>
+                    );
+                })}
             </div>
 
             <CreateAccountModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
