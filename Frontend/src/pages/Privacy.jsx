@@ -10,7 +10,6 @@ const Privacy = () => {
                         <ArrowLeft className="w-4 h-4 mr-2" /> Back to Application
                     </Link>
                     <div className="flex items-center gap-4 text-sm text-slate-400">
-                        <Link to="/about" className="hover:text-white transition-colors">About App</Link>
                         <Link to="/terms" className="hover:text-white transition-colors">Terms of Service</Link>
                     </div>
                 </div>
